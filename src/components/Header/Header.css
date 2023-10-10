@@ -1,0 +1,53 @@
+.header-container {
+    background-color: var(--highlight-darker);
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
+    align-items: center;
+    
+}
+
+.left-header-container {
+    display: flex;
+    align-items: center;
+    width: 35%;
+    gap: 2%;
+    
+}
+
+.campfire-icon {
+   width: 48px;
+}
+
+.header-title {
+    font-size: 28px;
+}
+
+.header-blurb {
+    font-size: 16px;
+    padding-left: 36px;
+    width: 35%;
+    font-style: italic;
+}
+
+.icon-and-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-info-loggedin {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.header-button {
+    border: 1px solid var(--main-bg-color);
+    background-color: var(--highlight-yellow);
+    color: var(--main-bg-color);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
