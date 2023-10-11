@@ -52,11 +52,11 @@ table {
 }
 /*Variables*/
 :root {
-    --main-bg-color: #332f2e;
+    --main-bg-color: #2d314b;
     --main-text-color: #f6f9f9;
     --highlight-grey: #b9afaf;
     --highlight-yellow: #db9824;
-    --highlight-darker: #1b1918;
+    --highlight-darker: #1d202f;
   }
 
 

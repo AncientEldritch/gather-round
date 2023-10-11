@@ -47,10 +47,10 @@ function Header() {
   return (
     <div className="header-container">
         <div className="left-header-container">
-          <div className="icon-and-title">
+          <Link className="icon-and-title link" to="/">
             <img className="campfire-icon" src="src\assets\campfire-icon.png" alt="campfire icon" />
             <h1 className="header-title">Gather-Round</h1>
-          </div>
+          </Link>
           <p className="header-blurb">Come share a tale.</p>
         </div>
         

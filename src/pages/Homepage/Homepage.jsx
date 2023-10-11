@@ -6,7 +6,6 @@ import FeaturedSlider from '../../components/FeaturedSlider/FeaturedSlider'
 function Homepage() {
   return (
     <div>
-      Homepage
       <FeaturedSlider />
     </div>
   )
