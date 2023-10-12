@@ -1,1 +1,39 @@
+.homepage-top-container {
+    height: 30%;
+    display: flex;
+    justify-content: space-between;
+}
 
+.featured-container-info {
+    width: 100%;
+}
+
+.homepage-container {
+    margin: 2% 5%;
+    height: 100vh;
+    
+}
+
+.featured-container-title {
+    font-size: 48px;
+    margin-bottom: 2%;
+}
+
+.welcome-title {
+    font-size: 48px;
+    margin-bottom: 2%;
+}
+
+.homepage-featured-container {
+    width: 50%;
+}
+
+.homepage-welcome-container {
+    width: 50%;
+    margin-right: 2%;
+    
+}
+
+.welcome-text {
+    line-height: 1.5;
+}

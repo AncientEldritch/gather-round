@@ -29,7 +29,7 @@ function FeaturedSlider() {
     },[])
 
     useEffect(() => {
-        console.log(featuredCommunities)
+        //console.log(featuredCommunities)
     }, [featuredCommunities])
 
     const handleRight = () => {

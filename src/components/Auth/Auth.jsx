@@ -5,28 +5,61 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
   } from "firebase/auth";
+import { addDoc, collection, query, where, getDocs} from "firebase/firestore";
 import { auth } from "../../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import { db } from '../../config/firebaseConfig';
 
 function Auth({closeModal}) {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [existingUser, setExistingUser] = useState(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const handleSignup = (e) => {
+  
+
+  const handleSignup = async (e) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        updateProfile(auth.currentUser, { displayName: name });
-        navigate("/");
-        closeModal();
+    // Check if the username already exists in the "users" collection
+    const usernameQuery = query(
+      collection(db, "users"),
+      where("username", "==", name) 
+    );
+  
+    const usernameSnapshot = await getDocs(usernameQuery);
+
+    if (!usernameSnapshot.empty) {
+      // Handle the case where the username already exists
+      alert("Username already exists. Please choose another username.");
+      return;
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // After creating the user, add their data to the Firestore collection
+        const usersRef = collection(db, "users");
+  
+        // Add user data to the Firestore collection
+        addDoc(usersRef, {
+          username: name, 
+        })
+          .then(() => {
+            // Update user profile with display name
+            updateProfile(auth.currentUser, { displayName: name, photoURL:"gs://gather-round-5167f.appspot.com/image_2023-10-11_195037045.png"});
+            //close the auth modal
+            closeModal();
+          })
+          .catch((error) => {
+            console.error(error);
+            
+          });
       })
       .catch((err) => alert(err.code));
-  };
+  };}
+  
+    
 
   const handleLogin = (e) => {
     e.preventDefault();

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect } from 'react'
 import './Header.css'
 import { Link } from 'react-router-dom';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebaseConfig";
 import { signOut } from "firebase/auth";
+import { getDoc, doc, collection, query, where} from "firebase/firestore";
+import { db } from '../../config/firebaseConfig';
 import Modal from 'react-modal'
 import Auth from '../Auth/Auth';
 
@@ -25,10 +27,14 @@ import Auth from '../Auth/Auth';
   //end modal setup
 
 function Header() {
-    const [user] = useAuthState(auth);
-    // modal initiation 
-    let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  // modal initiation 
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = useState(false);
+ 
+  const [user] = useAuthState(auth);
+
+
 
   function openModal() {
     setIsOpen(true);
@@ -36,7 +42,7 @@ function Header() {
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    
   }
 
   function closeModal() {
@@ -57,8 +63,9 @@ function Header() {
         <div className="header-auth-info">{user ? (
             //if the user is logged in, display their name and option to sign out. If not, display the signup link that opens the modal
             <div className="auth-info-loggedin">
-            <Link className="header-username link" to={`/user/${user?.displayName}`}>{user?.displayName}</Link>
-            <button className="header-button" onClick={() => signOut(auth)}>Logout</button>
+              <img src={user?.photoURL} alt="user icon" className="header-user-icon" />
+              <Link className="header-username link" to={`/user/${user?.displayName}`}>{user?.displayName}</Link>
+              <button className="header-button" onClick={() => signOut(auth)}>Logout</button>
             </div>
         ) : (
             <button className="header-button" onClick={openModal}>Log In or Signup</button>

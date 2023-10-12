@@ -1,6 +1,5 @@
 .featured-container {
-    width: 50%;
-    height: 30vh;
+    height: 100%;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -37,11 +36,14 @@
     height: fit-content;
     width: fit-content;
     font-size: 28px;
+    position: absolute;
+    left: 0;
 }
 
 .featured-community-blurb {
     margin-top: auto;
     height: fit-content;
+    width: 100%;
 }
 
 .group-open-flag {
