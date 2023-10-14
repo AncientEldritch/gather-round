@@ -53,3 +53,10 @@
     font-weight: bold;
 }
 
+.header-user-icon {
+    height: 50px;
+}
+
+.ReactModal__Overlay {
+    z-index: 3;
+}

@@ -5,10 +5,11 @@ import {
     signInWithEmailAndPassword,
     updateProfile,
   } from "firebase/auth";
-import { addDoc, collection, query, where, getDocs} from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs, serverTimestamp} from "firebase/firestore";
 import { auth } from "../../config/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { db } from '../../config/firebaseConfig';
+
 
 function Auth({closeModal}) {
 
@@ -18,6 +19,7 @@ function Auth({closeModal}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [lowercaseUsername, setLowercaseUsername] = useState("");
 
   
 
@@ -26,28 +28,36 @@ function Auth({closeModal}) {
     // Check if the username already exists in the "users" collection
     const usernameQuery = query(
       collection(db, "users"),
-      where("username", "==", name) 
+      where("lowercaseUsername", "==", lowercaseUsername) 
     );
   
     const usernameSnapshot = await getDocs(usernameQuery);
+    const allowedCharactersRegex = /^[a-zA-Z0-9._-]{1,20}$/;
 
     if (!usernameSnapshot.empty) {
       // Handle the case where the username already exists
       alert("Username already exists. Please choose another username.");
       return;
-    } else {
+    } else if(!allowedCharactersRegex.test(name)) {
+      // Handle the case where the username already exists
+      alert("Username must be 20 characters or less and may only contain [a-z] [A-Z] [0-9] . - _"
+      );
+      return;
+     } else {
       createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // After creating the user, add their data to the Firestore collection
+        // After creating the user, add their data to the users collection
         const usersRef = collection(db, "users");
-  
-        // Add user data to the Firestore collection
+
         addDoc(usersRef, {
           username: name, 
+          lowercaseUsername: lowercaseUsername,
+          profilePicture: "https://firebasestorage.googleapis.com/v0/b/gather-round-5167f.appspot.com/o/image_2023-10-11_195037045.png?alt=media&token=1354a376-83fe-4df6-8b5b-17e4f40c5a3e",
+          profileCreated: serverTimestamp(),
         })
           .then(() => {
             // Update user profile with display name
-            updateProfile(auth.currentUser, { displayName: name, photoURL:"gs://gather-round-5167f.appspot.com/image_2023-10-11_195037045.png"});
+            updateProfile(auth.currentUser, { displayName: name});
             //close the auth modal
             closeModal();
           })
@@ -69,19 +79,20 @@ function Auth({closeModal}) {
         navigate("/")
         closeModal();
       })
-      .catch((err) => alert(err.com));
+      .catch((err) => alert("Invalid credentials."));
   };
 
 
   return (
-    <div>
+    <div className="auth-container">
     {existingUser ? (
-      <form className="auth-form" onSubmit={handleLogin}>
-        <h1>Login with your email</h1>
-        <div className="form-group">
-          <input
+      <form className="auth-form-container" onSubmit={handleLogin}>
+        <h1 className="auth-title" >Login with your email</h1>
+        <div className="auth-input-container">
+          <input 
             type="email"
             placeholder="Enter your email"
+            className="auth-input"
             required
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -89,33 +100,39 @@ function Auth({closeModal}) {
           <input
             type="password"
             placeholder="Enter your password"
+            className="auth-input"
             required
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </div>
-        <button type="submit">Login</button>
+        <button className="auth-submit" type="submit">Login</button>
         <p>
           Don't have an account?{" "}
-          <span className="form-link" onClick={() => setExistingUser(false)}>
+          <span className="form-change-link" onClick={() => setExistingUser(false)}>
             Signup
           </span>
         </p>
       </form>
     ) : (
-      <form className="auth-form" onSubmit={handleSignup}>
-        <h1>Signup with your email</h1>
-        <div className="form-group">
+      <form className="auth-form-container" onSubmit={handleSignup}>
+        <h1 className="auth-title">Signup with your email</h1>
+        <div className="auth-input-container">
           <input
             type="text"
             placeholder="Enter your name"
+            className="auth-input"
             required
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value)
+              setLowercaseUsername(e.target.value.toLowerCase())
+            }}
             value={name}
           />
           <input
             type="email"
             placeholder="Enter your email"
+            className="auth-input"
             required
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -123,15 +140,16 @@ function Auth({closeModal}) {
           <input
             type="password"
             placeholder="Enter your password"
+            className="auth-input"
             required
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </div>
-        <button type="submit">Register</button>
+        <button className="auth-submit"  type="submit">Register</button>
         <p>
           Already have an account?
-          <span className="form-link" onClick={() => setExistingUser(true)}>
+          <span className="form-change-link" onClick={() => setExistingUser(true)}>
             Login
           </span>
         </p>

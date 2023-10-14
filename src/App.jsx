@@ -17,7 +17,7 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Homepage />} />
         <Route path="/group/:group" element={<GroupDetails />} />
-        <Route path="/user/:user" element={<UserProfile  />} />
+        <Route path="/user/:username" element={<UserProfile  />} />
       </Routes>
       <Footer />
     </BrowserRouter>
