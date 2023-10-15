@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage/Homepage'
 import Auth from './components/Auth/Auth'
 import GroupDetails from './pages/GroupDetails/GroupDetails'
 import UserProfile from './pages/UserProfile/UserProfile'
+import Settings from './pages/Settings/Settings'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/group/:group" element={<GroupDetails />} />
         <Route path="/user/:username" element={<UserProfile  />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import './UserProfile.css'
 import { auth } from "../../config/firebaseConfig";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getDocs, collection, query, where} from "firebase/firestore";
 import { db } from '../../config/firebaseConfig';
+import { render } from 'react-dom';
 
 
 
@@ -12,10 +13,22 @@ function UserProfile() {
   const [user] = useAuthState(auth);
   const { username } = useParams();
   const [profile, setProfile] = useState(null);
+  const [isUserPage, setIsUserPage] = useState(false);
+
+  const renderUserBox = () => {
+    if (profile?.userPageBox) {
+      return (
+        <p className="user-page-box">{profile?.userPageBox}</p>
+      )
+    } else {
+      return (
+        <p className="user-page-box placeholder-text">User information</p>
+      )
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user) {
         const userRef = collection(db, 'users');
         const q = query(userRef, where("username", "==", username));
         try {
@@ -33,14 +46,15 @@ function UserProfile() {
           // Handle errors if any occur during the query
           console.error("Error fetching user data:", error);
         }
-      } else {
-        // Handle the case where user is not logged in or does not have a displayName
-        console.log("User not logged in or does not have a displayName.");
-      }
     };
-  
     fetchData();
-  }, [user]);
+  }, []);
+
+  useEffect(() => {
+    if (username === user?.displayName) {
+      setIsUserPage(true);
+    }
+  }, [profile, username]);
 
   return (
     <div className="user-profile-container">
@@ -68,7 +82,18 @@ function UserProfile() {
         </div>
         <div className="profile-basic-information-item">
           <h3 className="profile-information-title">Joined Communities:</h3>
-          <p className="user-profile-information-item">{profile?.joinedGroups.length}</p>
+          <p className="user-profile-information-item">{profile?.joinedGroups?.length}</p>
+        </div>
+        {isUserPage &&
+          <Link to="/settings">Edit Profile</Link>
+        }
+      </div>
+      <div className="user-profile-bottom-container">
+        <div className="user-profile-bottom-left-container">
+          
+        </div>
+        <div className="user-profile-bottom-right-container">
+          {renderUserBox()}
         </div>
       </div>
     </div>

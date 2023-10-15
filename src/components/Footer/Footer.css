@@ -1,3 +1,12 @@
 .footer-container {
+    padding: 1% 2%;
+    background-color: var(--highlight-darker);
+    display: flex;
+    justify-content: space-between;
+}
 
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     margin: 2% 5%;
-    height: 100vh;
 }
 
 .user-profile-top-container {
@@ -26,6 +25,9 @@
     top: 10%;
     border-radius: 50%;
     background-color: rgba(29, 32, 47, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-profile-icon-larger {
@@ -42,7 +44,7 @@
     background-size: cover;
     background-position: center;
     width: 100%;
-    height: 25%;
+    height: 250px;
 }
 .user-profile-blurb {
     font-size: 26px;
@@ -52,4 +54,47 @@
     margin-left: 450px;
     margin-top: 2%;
     display: flex;
+    gap: 5%;
+}
+
+.profile-basic-information-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.user-profile-information-item {
+    text-align: center;
+}
+
+.profile-information-title {
+    font-weight: bold;
+}
+
+.user-page-box {
+    min-height: 500px;
+    border: solid 1px var(--highlight-yellow);
+    background-color: rgba(29, 32, 47, 0.7);
+    padding: 1%;
+}
+
+.user-profile-bottom-container {
+    display: flex;
+    margin-top: 180px;
+}
+
+.user-profile-bottom-left-container {
+    width: 20%;
+    min-height: 500px;
+    margin-right: 10%;
+    background-color: antiquewhite;
+}
+
+.user-profile-bottom-right-container {
+    width: 70%;
+}
+
+.placeholder-text {
+    color: rgba(246, 249, 249, 0.7);
+    text-align: center;
 }

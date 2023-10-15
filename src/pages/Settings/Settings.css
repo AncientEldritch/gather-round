@@ -1,0 +1,97 @@
+.settings-container {
+    height: 100vh;
+    margin: 2% 5%;
+}
+
+.settings-top-container {
+    font-size: 48px;
+    display: flex;
+    margin-bottom: 2%;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.community-reminder {
+    font-size: 24px;
+    color: rgba(246, 249, 249, 0.7);
+}
+
+.settings-top-left-container {
+    display: flex;
+    gap: 24px;
+}
+
+.settings-icon-container {
+    margin-top: 2%;
+    width: 400px;
+    height: 400px;
+    border: 1px solid var(--highlight-yellow);
+    border-radius: 50%;
+    background-color: rgba(29, 32, 47, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.icon-edit-container {
+    position: absolute;
+    font-size: 36px;
+    top: -20%;
+    left: 65%;
+    display: flex;
+    align-items: center;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-edit-image-button {
+    margin-right: 12px;
+}
+
+.button-container {
+    display: flex;
+    margin-top: 10%;
+    gap: 10%;
+    justify-content: space-between;
+    width: 75%;
+}
+
+input::file-selector-button {
+    border: 1px solid var(--main-bg-color);
+    background-color: var(--highlight-yellow);
+    color: var(--main-bg-color);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-weight: bold;
+}
+
+.settings-button {
+    background-color: inherit;
+    border: none;
+    text-decoration: underline;
+    color: var(--highlight-yellow);
+    font-weight: bold;
+}
+
+.icon-title {
+    font-size: 36px;
+    margin-top: 2%;
+}
+
+.icon-change-text {
+    font-size: 20px;
+    color: rgba(246, 249, 249, 0.7);
+}
+
+.settings-edit-image-button {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 120px;
+    margin-right: 24px;
+}

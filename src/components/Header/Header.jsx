@@ -101,7 +101,7 @@ function Header() {
             //if the user is logged in, display their name and option to sign out. If not, display the signup link that opens the modal
             <div className="auth-info-loggedin">
               <img src={profile?.profilePicture} alt="user icon" className="header-user-icon" />
-              <Link className="header-username link" to={`/user/${user?.displayName}`}>{user?.displayName}</Link>
+              <Link className="header-username link" to={`/user/${user?.displayName}`}  onClick={() => {window.location.href = `/user/${user?.displayName}`;}}>{user?.displayName}</Link>
               <button className="header-button" onClick={() => signOut(auth)}>Logout</button>
             </div>
         ) : (
