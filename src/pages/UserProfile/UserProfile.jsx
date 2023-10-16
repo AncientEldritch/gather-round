@@ -18,7 +18,7 @@ function UserProfile() {
   const renderUserBox = () => {
     if (profile?.userPageBox) {
       return (
-        <p className="user-page-box">{profile?.userPageBox}</p>
+        <div className="user-page-box" dangerouslySetInnerHTML={{ __html: profile?.userPageBox }}  />
       )
     } else {
       return (
