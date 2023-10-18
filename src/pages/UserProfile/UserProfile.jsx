@@ -6,6 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getDocs, collection, query, where} from "firebase/firestore";
 import { db } from '../../config/firebaseConfig';
 import { render } from 'react-dom';
+import MemberOfContainer from '../../components/MemberOfContainer/MemberOfContainer';
 
 
 
@@ -37,7 +38,7 @@ function UserProfile() {
             // Grab the first document from the query result
             const userData = querySnapshot.docs[0].data();
             setProfile(userData);
-            console.log(userData);
+            //console.log(userData);
           } else {
             // Handle the case where no user document is found
             console.log("User document not found.");
@@ -90,7 +91,7 @@ function UserProfile() {
       </div>
       <div className="user-profile-bottom-container">
         <div className="user-profile-bottom-left-container">
-          
+          <MemberOfContainer username={username} profile={profile} />
         </div>
         <div className="user-profile-bottom-right-container">
           {renderUserBox()}

@@ -55,15 +55,15 @@ function Header() {
             //console.log(userData);
           } else {
             // Handle the case where no user document is found
-            console.log("User document not found.");
+            //console.log("User document not found.");
           }
         } catch (error) {
           // Handle errors if any occur during the query
-          console.error("Error fetching user data:", error);
+          //console.error("Error fetching user data:", error);
         }
       } else {
         // Handle the case where user is not logged in or does not have a displayName
-        console.log("User not logged in or does not have a displayName.");
+        //console.log("User not logged in or does not have a displayName.");
       }
     };
   

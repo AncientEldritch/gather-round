@@ -30,7 +30,7 @@ function Settings() {
     const toolbarOptions = [
         [ 'underline', 'strike'],        // toggled buttons
         ['blockquote', 'code-block'],
-      
+        [{ 'header': 1 }, { 'header': 2 }],     
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
       
@@ -231,6 +231,16 @@ const updateUserPageBox = async () => {
     
 };
 
+const updateData = async (field, newValue) => {
+    const userRef = collection(db, 'users');
+    const userDocRef = doc(userRef, docId);
+    await updateDoc(userDocRef, {
+    // Update existing fields or add new fields
+        [field]: newValue,
+     });
+};
+
+
     useEffect(() => {
         const fetchData = async () => {
             // Check if user?.displayName is defined before making the query
@@ -332,7 +342,7 @@ const updateUserPageBox = async () => {
                                 }}
                                 value={newUserPageBox}
                                 onChange={newUserPageBoxInput} // Pass your onChange handler here
-                                placeholder="Include any other information you'd like. This accepts plaintext and html."
+                                placeholder="Include any other information you'd like."
                                 id="information"
                                 type="textarea"
                                 className="options-input quill-textarea"
